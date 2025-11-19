@@ -96,7 +96,9 @@ class RAGService:
   def build_query_pipeline(self):
     try:
       template = dedent("""
-        Answer the questions based on the given context.
+        You are an expert at reading and interpreting game rules.
+        Answer the questions based on the given context from the manual.
+        You must provide the text from the context as a reference.
 
         Context:
         {% for document in documents %}

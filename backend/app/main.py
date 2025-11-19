@@ -51,6 +51,8 @@ async def favicon():
 
 @app.get("/query", response_model=dict)
 async def query_api(question: str) -> dict:
+    if not question:
+        return {"question": question, "answer": "No question provided."}
     rag_service: RAGService = app.state.rag_service
     answer: str = rag_service.query(question)
     return {"question": question, "answer": answer}
