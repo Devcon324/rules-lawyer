@@ -12,7 +12,9 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # HTTP Bearer token security scheme
-security = HTTPBearer()
+# Configured per RFC 6750: tokens passed in Authorization header as "Bearer <token>"
+# auto_error=True ensures proper 401 responses with WWW-Authenticate header when token is missing
+security = HTTPBearer(scheme_name="Bearer", auto_error=True)
 
 # JWT Configuration
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", secrets.token_urlsafe(32))
@@ -43,21 +45,38 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
-    """Verify and decode a JWT token."""
+    """
+    Verify and decode a JWT token.
+    
+    Follows RFC 6750 Bearer Token Usage specification:
+    - Tokens are passed in Authorization header as: Authorization: Bearer <token>
+    - Error responses include WWW-Authenticate header with error codes
+    """
     token = credentials.credentials
-    credentials_exception = HTTPException(
+    
+    # RFC 6750 compliant error responses
+    invalid_token_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": 'Bearer error="invalid_token", error_description="The access token is invalid"'},
     )
+    
+    expired_token_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authentication credentials expired",
+        headers={"WWW-Authenticate": 'Bearer error="invalid_token", error_description="The access token expired"'},
+    )
+    
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
-            raise credentials_exception
+            raise invalid_token_exception
         return {"username": username, "payload": payload}
+    except ExpiredSignatureError:
+        raise expired_token_exception
     except JWTError:
-        raise credentials_exception
+        raise invalid_token_exception
 
 
 def authenticate_user(username: str, password: str) -> bool:
