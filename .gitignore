@@ -1,7 +1,8 @@
 # Custom
 *data/
 .venv*
-rules_lawyer_API_CALLS/
+*/rules_lawyer_API_CALLS/bruno.json
+*.bru
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -210,3 +211,50 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+rules_lawyer_API_CALLS/Answer Question.bru
+rules_lawyer_API_CALLS/Answer Question.bru

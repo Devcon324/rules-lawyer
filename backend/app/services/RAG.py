@@ -20,7 +20,6 @@ load_dotenv(dotenv_path=Path(__file__).parent.parent.parent / ".env")
 
 class RAGService:
   def __init__(self):
-    self.embedding_pipeline = Pipeline()
     self.document_store = Neo4jDocumentStore(
       url=os.getenv("NEO4J_URI"),
       database=os.getenv("NEO4J_DATABASE"),
@@ -30,7 +29,11 @@ class RAGService:
       node_label=os.getenv("NEO4J_NODE_LABEL"), # Providing a label to Neo4j nodes which store Documents
       embedding_field="embedding",
       embedding_dim=768,
+      recreate_index=True,
+      progress_bar=True
     )
+    self.embedding_pipeline = Pipeline()
+    self.query_pipeline = Pipeline()
 
   def build_embeddings(self, path_to_markdown: str) -> bool:
     try:
