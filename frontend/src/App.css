@@ -81,6 +81,7 @@
 .message-placeholder {
   color: var(--color-light-gold);
   font-style: italic;
+  font-size: 1.5rem;
   text-align: center;
   padding: 2rem;
 }

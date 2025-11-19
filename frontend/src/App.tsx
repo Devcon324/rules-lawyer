@@ -50,7 +50,7 @@ function App() {
       <img src={drgTitle} alt="DRG Title" className="title-image" />
       <div className="chat-messages">
         {messages.length === 0 ? (
-          <div className="message-placeholder">Ask a question...</div>
+          <div className="message-placeholder">Ask a question about the boardgame...</div>
         ) : (
           messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`}>

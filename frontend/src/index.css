@@ -43,7 +43,7 @@ body {
   height: 100vh;
   background-color: var(--color-dark-green);
   background-image: 
-    radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%),
+    radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%),
     linear-gradient(rgba(255, 255, 255, 0.05) 3px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 3px, transparent 1px);
   background-size: 100% 100%, 100px 100px, 100px 100px;
