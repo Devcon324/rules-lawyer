@@ -1,22 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
+
+interface Message {
+  type: 'question' | 'answer'
+  content: string
+}
 
 function App() {
   const [question, setQuestion] = useState('')
-  const [response, setResponse] = useState('')
+  const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages, loading])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!question.trim()) return
 
+    const currentQuestion = question.trim()
+    setQuestion('')
     setLoading(true)
+
+    // Add question to messages immediately
+    setMessages(prev => [...prev, { type: 'question', content: currentQuestion }])
+
     try {
-      const res = await fetch(`http://127.0.0.1:8000/query?question=${encodeURIComponent(question)}`)
+      const res = await fetch(`http://127.0.0.1:8000/query?question=${encodeURIComponent(currentQuestion)}`)
       const data = await res.json()
-      setResponse(data.answer || JSON.stringify(data))
+      const answer = data.answer || JSON.stringify(data)
+      setMessages(prev => [...prev, { type: 'answer', content: answer }])
     } catch (error) {
-      setResponse(`Error: ${error instanceof Error ? error.message : 'Failed to fetch response'}`)
+      const errorMessage = `Error: ${error instanceof Error ? error.message : 'Failed to fetch response'}`
+      setMessages(prev => [...prev, { type: 'answer', content: errorMessage }])
     } finally {
       setLoading(false)
     }
@@ -25,11 +47,19 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-messages">
-        {response ? (
-          <div className="message response">{response}</div>
-        ) : (
+        {messages.length === 0 ? (
           <div className="message-placeholder">Ask a question...</div>
+        ) : (
+          messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.type}`}>
+              {msg.content}
+            </div>
+          ))
         )}
+        {loading && (
+          <div className="message answer loading">Thinking...</div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
       <form className="chat-input-form" onSubmit={handleSubmit}>
         <input
