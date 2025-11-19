@@ -87,7 +87,31 @@ class PDFParser:
     result         = converter.convert(source=self.pdf_path)
 
     output_path = output_dir / f"{os.path.basename(self.pdf_path).replace('.pdf', '')}_docling.md"
-    with open(output_path, "w", encoding="utf-8") as f: 
+    with open(output_path, "w", encoding="utf-8") as f:
+      f.write(result.export_to_markdown())
+
+    print(f"Extracted text saved to: {output_path}")
+
+  def docling_vlm_parser(self):
+    pipeline_options = VlmPipelineOptions()
+
+    pipeline_options.accelerator_options = AcceleratorOptions(num_threads=8, device=AcceleratorDevice.CUDA)
+    pipeline_options.do_ocr = True
+    pipeline_options.do_table_structure = True
+    pipeline_options.table_structure_options.do_cell_matching = True
+
+    converter = DocumentConverter(
+      format_options={
+        InputFormat.PDF: PdfFormatOption(
+          pipeline_options=pipeline_options,
+          pipeline_cls=VlmPipeline,
+        )
+      }
+    )
+    result = converter.convert(source=self.pdf_path).document
+
+    output_path = output_dir / f"{os.path.basename(self.pdf_path).replace('.pdf', '')}_docling_vlm.md"
+    with open(output_path, "w", encoding="utf-8") as f:
       f.write(result.export_to_markdown())
 
     print(f"Extracted text saved to: {output_path}")

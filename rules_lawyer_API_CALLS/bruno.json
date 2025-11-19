@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "rules_lawyer",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
