@@ -73,9 +73,12 @@ function App() {
           className="chat-input"
         />
         <button type="submit" disabled={loading || !question.trim()} className="send-button">
-          {loading ? 'Sending...' : 'Send'}
+          Send
         </button>
       </form>
+      <div className="disclaimer">
+        This is for educational use only.
+      </div>
     </div>
   )
 }
