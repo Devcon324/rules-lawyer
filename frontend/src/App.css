@@ -60,8 +60,8 @@
   filter: brightness(0.85);
   box-shadow: 
     0 4px 8px rgba(0, 0, 0, 0.1),
-    0 0 20px rgba(93, 121, 255, 0.3),
-    0 0 40px rgba(93, 121, 255, 0.15);
+    0 0 2px rgba(254, 175, 49, 0.15),
+    0 0 2px rgba(254, 175, 49, 0.08);
 }
 
 .message.answer {
@@ -71,8 +71,8 @@
   filter: brightness(0.85);
   box-shadow: 
     0 4px 8px rgba(0, 0, 0, 0.1),
-    0 0 20px rgba(254, 175, 49, 0.3),
-    0 0 40px rgba(254, 175, 49, 0.15);
+    0 0 2px rgba(254, 175, 49, 0.15),
+    0 0 2px rgba(254, 175, 49, 0.08);
 }
 
 .message.loading {
