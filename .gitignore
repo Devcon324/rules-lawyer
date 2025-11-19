@@ -1,8 +1,9 @@
 # Custom
 *data/
 .venv*
-*/rules_lawyer_API_CALLS/bruno.json
+rules_lawyer_API_CALLS/
 *.bru
+bruno.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
