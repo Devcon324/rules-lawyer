@@ -10,6 +10,14 @@
   padding-right: 2rem;
 }
 
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
 .title-image {
   width: 50%;
   max-width: 50%;
@@ -17,6 +25,35 @@
   margin: 0 auto 1.5rem auto;
   object-fit: contain;
   display: block;
+}
+
+.logout-button {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to bottom, 
+    var(--color-medium-red), var(--color-dark-red));
+  color: white;
+  border: 2px solid var(--color-light-gold);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(255, 100, 100, 0.4),
+    0 0 40px rgba(255, 100, 100, 0.2);
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.logout-button:hover {
+  background: linear-gradient(to bottom, 
+    var(--color-light-red), var(--color-medium-red));
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(255, 100, 100, 0.5),
+    0 0 60px rgba(255, 100, 100, 0.3);
 }
 
 .chat-messages {

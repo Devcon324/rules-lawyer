@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import drgTitle from './assets/DRG_fulll_title.png'
+import { useAuth } from './contexts/AuthContext'
+import { Login } from './components/Login'
+import { apiRequest } from './utils/api'
 
 interface Message {
   type: 'question' | 'answer'
@@ -8,6 +11,7 @@ interface Message {
 }
 
 function App() {
+  const { isAuthenticated, logout, loading: authLoading } = useAuth()
   const [question, setQuestion] = useState('')
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
@@ -33,7 +37,10 @@ function App() {
     setMessages(prev => [...prev, { type: 'question', content: currentQuestion }])
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/query?question=${encodeURIComponent(currentQuestion)}`)
+      const res = await apiRequest(`/query?question=${encodeURIComponent(currentQuestion)}`)
+      if (!res.ok) {
+        throw new Error('Failed to fetch response')
+      }
       const data = await res.json()
       const answer = data.answer || JSON.stringify(data)
       setMessages(prev => [...prev, { type: 'answer', content: answer }])
@@ -45,9 +52,26 @@ function App() {
     }
   }
 
+  if (authLoading) {
+    return (
+      <div className="chat-container">
+        <div className="message-placeholder">Loading...</div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return <Login />
+  }
+
   return (
     <div className="chat-container">
-      <img src={drgTitle} alt="DRG Title" className="title-image" />
+      <div className="chat-header">
+        <img src={drgTitle} alt="DRG Title" className="title-image" />
+        <button onClick={logout} className="logout-button">
+          Logout
+        </button>
+      </div>
       <div className="chat-messages">
         {messages.length === 0 ? (
           <div className="message-placeholder">Ask a question about the boardgame...</div>

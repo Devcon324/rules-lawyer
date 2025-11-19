@@ -43,6 +43,9 @@ services:
       - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL:-}
       - OLLAMA_GENERATIVE_MODEL=${OLLAMA_GENERATIVE_MODEL:-}
+      - AUTH_USERNAME=${AUTH_USERNAME:-}
+      - AUTH_PASSWORD=${AUTH_PASSWORD:-}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-}
     depends_on:
       neo4j:
         condition: service_healthy
