@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: frontend-rules-lawyer
     ports:
       - "5173:5173"
     volumes:
@@ -14,5 +15,12 @@ services:
       - NODE_ENV=development
     stdin_open: true
     tty: true
+    networks:
+      - rules-lawyer-network
     command: npm run dev -- --host
+
+networks:
+  rules-lawyer-network:
+    name: rules-lawyer-network
+    external: true
 

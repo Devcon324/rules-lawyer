@@ -1,8 +1,9 @@
+from textwrap import dedent
+
+from app.services.RAG import RAGService
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from textwrap import dedent
-from app.services.RAG import RAGService
 
 # .venv/bin/uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 

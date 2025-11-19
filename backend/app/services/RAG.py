@@ -16,7 +16,8 @@ from haystack_integrations.components.embedders.ollama import (
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 from neo4j_haystack import Neo4jDocumentStore, Neo4jEmbeddingRetriever
 
-load_dotenv(dotenv_path=Path(__file__).parent.parent.parent / ".env")
+# Load .env file but don't override existing environment variables (set by Docker)
+load_dotenv(dotenv_path=Path(__file__).parent.parent.parent / ".env", override=False)
 
 class RAGService:
   def __init__(self):
