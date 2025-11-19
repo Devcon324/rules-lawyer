@@ -1,34 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [question, setQuestion] = useState('')
+  const [response, setResponse] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!question.trim()) return
+
+    setLoading(true)
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/query?question=${encodeURIComponent(question)}`)
+      const data = await res.json()
+      setResponse(data.answer || JSON.stringify(data))
+    } catch (error) {
+      setResponse(`Error: ${error instanceof Error ? error.message : 'Failed to fetch response'}`)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="chat-container">
+      <div className="chat-messages">
+        {response ? (
+          <div className="message response">{response}</div>
+        ) : (
+          <div className="message-placeholder">Ask a question...</div>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <form className="chat-input-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Type your question..."
+          disabled={loading}
+          className="chat-input"
+        />
+        <button type="submit" disabled={loading || !question.trim()} className="send-button">
+          {loading ? 'Sending...' : 'Send'}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      </form>
+    </div>
   )
 }
 
