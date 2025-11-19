@@ -32,7 +32,7 @@ class RAGService:
       embedding_dim=768,
     )
 
-  def markdown_to_vector_embeeding(self, path_to_markdown: str) -> bool:
+  def build_embeddings(self, path_to_markdown: str) -> bool:
     try:
       document_converter = MarkdownToDocument(
         table_to_single_line=False,
@@ -90,7 +90,7 @@ class RAGService:
       print(f"Error in markdown_to_vector_embeeding: {e}")
       return None
 
-  def query_pipeline_setup(self):
+  def build_query_pipeline(self):
     try:
       template = dedent("""
         Answer the questions based on the given context.
@@ -151,8 +151,8 @@ class RAGService:
 if __name__ == "__main__":
   rag_service = RAGService()
 
-  rag_service.markdown_to_vector_embeeding(path_to_markdown="backend/data/processed_documents/DRG_2E_Rulebook_docling.md")
-  rag_service.query_pipeline_setup()
+  rag_service.build_embeddings(path_to_markdown="backend/data/processed_documents/DRG_2E_Rulebook_docling.md")
+  rag_service.build_query_pipeline()
 
   result = rag_service.query(question="What are some special features of the driller?")
 
