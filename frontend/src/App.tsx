@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
+import drgTitle from './assets/DRG_fulll_title.png'
 
 interface Message {
   type: 'question' | 'answer'
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <div className="chat-container">
+      <img src={drgTitle} alt="DRG Title" className="title-image" />
       <div className="chat-messages">
         {messages.length === 0 ? (
           <div className="message-placeholder">Ask a question...</div>
