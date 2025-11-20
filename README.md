@@ -2,6 +2,20 @@
 
 This project is configured to use ngrok for exposing your application through a single public domain. The setup uses nginx as a reverse proxy to route traffic to your backend and frontend services.
 
+## Technology Stack
+
+<div align="center">
+
+| Category | Technology |
+| :------: | :--------: |
+| **Backend (LLM API)** | <p align="center"> <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/python.png"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/fastapi.png"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/langchain_icon.png">  &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://github.com/ollama/ollama/assets/3325447/0d0b44e2-8f4a-4e99-9b52-a5c1c741c8f7"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://haystack.deepset.ai/images/logos/haystack.png"> </p> |
+| **Frontend** | <p align="center"> <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png"> &nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png"> &nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/vite.png"> &nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/node_js.png"> </p> |
+| **Graph Database** | <p align="center"> <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/neo4j.png"> </p> |
+| **DevOps** | <p align="center"> <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/docker.png"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/nginx.png"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://avatars.githubusercontent.com/u/10625446?s=200&v=4"></p> |
+| **Version Control** | <p align="center"> <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/git.png"> &nbsp;&nbsp;&nbsp;&nbsp; <img height="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/github.png"> </p> |
+
+</div>
+
 ## Startup
 
 ### 1. Run ollama on Docker
