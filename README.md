@@ -1,7 +1,5 @@
 # rules-lawyer
 
-This project is configured to use ngrok for exposing your application through a single public domain. The setup uses nginx as a reverse proxy to route traffic to your backend and frontend services.
-
 ## Technology Stack
 
 <div align="center">
@@ -17,6 +15,8 @@ This project is configured to use ngrok for exposing your application through a 
 </div>
 
 ## Startup
+
+This project is configured to use ngrok for exposing your application through a single public domain. The setup uses nginx as a reverse proxy to route traffic to your backend and frontend services.
 
 ### 1. Run ollama on Docker
 
