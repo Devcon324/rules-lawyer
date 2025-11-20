@@ -1,11 +1,17 @@
-from textwrap import dedent
+import os
+import secrets
+from pathlib import Path
 
+from app.routers import auth
 from app.services.RAG import RAGService
-from fastapi import FastAPI
+from app.utils.auth import verify_token
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
 # .venv/bin/uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env", override=False)
 
 async def lifespan(app: FastAPI):
     # Startup actions
@@ -34,24 +40,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include routers
+app.include_router(auth.router)
 
 @app.get("/", response_model=dict)
 async def root():
     return {"message": "Welcome to Rules Lawyer API"}
 
-
 @app.get("/health", response_model=dict)
 async def health_check():
     return {"status": "healthy"}
-
 
 @app.get("/favicon.ico")
 async def favicon():
     """Handle favicon requests to prevent 404 errors."""
     return Response(status_code=204)
 
+@app.get("/api/protected")
+def protected_route(token_data: dict = Depends(verify_token)):
+    return {"message": f"Hello {token_data['username']}"}
+
 @app.get("/query", response_model=dict)
-async def query_api(question: str) -> dict:
+async def query_api(
+    question: str,
+    token_data: dict = Depends(verify_token)
+) -> dict:
     if not question:
         return {"question": question, "answer": "No question provided."}
     rag_service: RAGService = app.state.rag_service
