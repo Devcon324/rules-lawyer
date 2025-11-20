@@ -1,0 +1,8 @@
+version: "2"
+# authtoken is set via NGROK_AUTHTOKEN environment variable
+tunnels:
+  web:
+    proto: http
+    addr: nginx:80
+    inspect: true
+

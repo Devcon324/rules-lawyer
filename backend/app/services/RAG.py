@@ -54,7 +54,7 @@ class RAGService:
         ascii_only=False)
       document_splitter = DocumentSplitter(
         split_by="word",
-        split_length=200,
+        split_length=1000,
         split_overlap=0,
         split_threshold=0,
         splitting_function=None,

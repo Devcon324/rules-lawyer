@@ -92,7 +92,7 @@ function App() {
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Type your question..."
+          placeholder="ask..."
           disabled={loading}
           className="chat-input"
         />

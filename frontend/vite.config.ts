@@ -7,5 +7,10 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
+    allowedHosts: [
+      "localhost",
+      "192.168.18.2",
+      "extensionally-adoptive-jaelynn.ngrok-free.dev",
+    ],
   },
 })

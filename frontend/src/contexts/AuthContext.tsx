@@ -10,7 +10,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
+// Use relative URLs by default to work with reverse proxy (nginx/ngrok)
+// Set VITE_API_BASE_URL to absolute URL only for local development without nginx
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null)
