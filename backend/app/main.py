@@ -15,14 +15,18 @@ load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env", override=False)
 
 async def lifespan(app: FastAPI):
     # Startup actions
-    print("Starting up the Rules Lawyer API...")
+    print(f"{'#'*80}\nStarting up the Rules Lawyer API...\n{'#'*80}")
+    print(f"{'#'*80}\nInitializing RAG service...\n{'#'*80}")
     app.state.rag_service = RAGService()  # Initialize RAG service
+    print(f"{'#'*80}\nBuilding embeddings...\n{'#'*80}")
     app.state.rag_service.build_embeddings(
         path_to_markdown="data/processed_documents/DRG_2E_Rulebook_docling.md")
+    print(f"{'#'*80}\nBuilding query pipeline...\n{'#'*80}")
     app.state.rag_service.build_query_pipeline()
+    print(f"{'#'*80}\nPre-Startup complete. Server is running...\n{'#'*80}")
     yield # Server is running
     # Shutdown actions
-    print("Shutting down the Rules Lawyer API...")
+    print(f"{'#'*80}\nShutting down the Rules Lawyer API...\n{'#'*80}")
 
 app = FastAPI(
     title="Rules Lawyer API",

@@ -54,13 +54,13 @@ class RAGService:
         ascii_only=False)
       document_splitter = DocumentSplitter(
         split_by="word",
-        split_length=1000,
+        split_length=200,
         split_overlap=0,
         split_threshold=0,
         splitting_function=None,
-        respect_sentence_boundary=True,
+        respect_sentence_boundary=False,
         language="en",
-        use_split_rules=False,
+        use_split_rules=True,
         extend_abbreviations=True,
         skip_empty_documents=True)
       document_embedder = OllamaDocumentEmbedder(

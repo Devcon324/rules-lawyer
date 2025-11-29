@@ -26,7 +26,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: fastapi-rules-lawyer
+    container_name: backend-rules-lawyer
     restart: always
     # Ports removed - accessed through nginx reverse proxy
     volumes:
@@ -39,7 +39,7 @@ services:
       - NEO4J_PASSWORD=${NEO4J_PASSWORD:-}
       - NEO4J_INDEX=${NEO4J_INDEX:-}
       - NEO4J_NODE_LABEL=${NEO4J_NODE_LABEL:-}
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
       - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL:-}
       - OLLAMA_GENERATIVE_MODEL=${OLLAMA_GENERATIVE_MODEL:-}
       - AUTH_USERNAME=${AUTH_USERNAME:-}
@@ -88,6 +88,24 @@ services:
     networks:
       - rules-lawyer-network
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-rules-lawyer
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    networks:
+      - rules-lawyer-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
   ngrok:
     image: ngrok/ngrok:latest
     container_name: ngrok-rules-lawyer
@@ -107,6 +125,10 @@ services:
       - nginx
     networks:
       - rules-lawyer-network
+
+volumes:
+  ollama:
+    external: true
 
 networks:
   rules-lawyer-network:

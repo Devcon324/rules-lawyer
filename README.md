@@ -18,17 +18,13 @@
 
 This project is configured to use ngrok for exposing your application through a single public domain. The setup uses nginx as a reverse proxy to route traffic to your backend and frontend services.
 
-### 1. Run ollama on Docker
-
-https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
-
-### 2. Register for ngrok for free domain
+### 1. Register for ngrok for free domain
 
 you will be given a free domain on login and setting up a tunnel
 
 https://dashboard.ngrok.com/login
 
-### 3. Run docker compose
+### 2. Run docker compose
 
 run this in project root
 
@@ -75,7 +71,8 @@ docker-compose up -d
 ```
 
 This will start:
-- Neo4j database
+- Neo4j (Vector Database)
+- Ollama (Embeddings and Generation)
 - Backend (FastAPI)
 - Frontend (Vite)
 - Nginx reverse proxy
