@@ -1,5 +1,11 @@
 # rules-lawyer
 
+## Architecture Diagram
+
+<div align="center">
+  <img src="architecture-diagram.svg" alt="Rules Lawyer Production Architecture" width="100%">
+</div>
+
 ## Technology Stack
 
 <div align="center">
@@ -30,6 +36,12 @@ run this in project root
 
 ```sh
 docker compose up --build -d
+docker compose down -v
+
+# or prod build
+docker-compose -f docker-compose.prod.yml up --build -d
+# shutodwn
+docker-compose -f docker-compose.prod.yml down -v
 ```
 
 ## Architecture

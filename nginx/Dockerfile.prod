@@ -1,0 +1,38 @@
+# Multi-stage build: Build frontend, then copy to nginx
+
+# Stage 1: Build the frontend application
+FROM node:24.11.1 AS frontend-builder
+
+WORKDIR /app
+
+# Copy frontend package files
+COPY frontend/package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy frontend source code
+COPY frontend/ ./
+
+# Build the frontend
+RUN npm run build
+
+# Stage 2: Production nginx server
+FROM nginx:alpine
+
+# Install wget for healthcheck
+RUN apk add --no-cache wget
+
+# Remove default nginx config
+RUN rm /etc/nginx/nginx.conf
+
+# Copy production nginx configuration
+COPY nginx/nginx.prod.conf /etc/nginx/nginx.conf
+
+# Copy built frontend files from builder stage
+COPY --from=frontend-builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+

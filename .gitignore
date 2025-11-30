@@ -5,6 +5,10 @@ rules_lawyer_API_CALLS/
 *.bru
 bruno.json
 
+# Ngrok configuration (contains sensitive auth tokens and tunnel configs)
+ngrok/ngrok.yml
+ngrok.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
