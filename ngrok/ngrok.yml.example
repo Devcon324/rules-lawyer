@@ -1,0 +1,13 @@
+version: "2"
+# authtoken is set via NGROK_AUTHTOKEN environment variable in docker-compose
+# DO NOT put your authtoken directly in this file
+tunnels:
+  web:
+    proto: http
+    addr: nginx:80
+    inspect: true
+    # Optional: Add custom domain if you have ngrok paid plan
+    # domain: your-custom-domain.ngrok.io
+    # Optional: Add basic auth
+    # auth: "username:password"
+

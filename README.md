@@ -30,6 +30,12 @@ run this in project root
 
 ```sh
 docker compose up --build -d
+docker compose down -v
+
+# or prod build
+docker-compose -f docker-compose.prod.yml up --build -d
+# shutodwn
+docker-compose -f docker-compose.prod.yml down -v
 ```
 
 ## Architecture
