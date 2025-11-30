@@ -1,5 +1,11 @@
 # rules-lawyer
 
+## Architecture Diagram
+
+<div align="center">
+  <img src="architecture-diagram.svg" alt="Rules Lawyer Production Architecture" width="100%">
+</div>
+
 ## Technology Stack
 
 <div align="center">
